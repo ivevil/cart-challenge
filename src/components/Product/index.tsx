@@ -1,9 +1,9 @@
-import { Product } from '../../model/Product';
+import { ProductInterface } from "../../globalTypes";
 
-const Products: React.FC<Product> = ({ productName, price }) => {
+const Products: React.FC<ProductInterface> = ({ productName, price, id }) => {
 
     return (
-        <option>{productName} - ({price}€)</option>
+        <option value={id}>{productName} - ({price}€)</option>
     )
 }
 
