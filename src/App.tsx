@@ -64,6 +64,12 @@ const App: React.FC = () => {
       <Amount amount={amount} updateAmount={updateAmount} product={product} />
       <button onClick={handleClick}>Add</button>
       <div className="cart__message">{(amount <= maxAmount && maxAmount !== 'undefined') ? "" : "Sorry, you reached the limit of products. They are only " + maxAmount + " available"}</div>
+      <div className="cart__message">
+          <p>Price: {product !== undefined ? product.price : "0"}</p>
+          <p>x</p>
+          <p className="total">{amount}</p>
+          <p>TOTAL: {product !== undefined ? (Number(product.price) *  Number(amount)).toFixed(2) : "0"} €</p>
+      </div>
     </ctx.Provider>
   )
 }
