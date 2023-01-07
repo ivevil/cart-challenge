@@ -6,7 +6,7 @@ const Products = ({ products }: { products: Product[] }) => {
         <select>
             {products.map((product: any) => {
                 return (
-                    <option key={product.id}>{product.productName}</option>
+                    <option key={product.id}>{product.productName} ({product.price}€)</option>
                 )
             })}
         </select>
