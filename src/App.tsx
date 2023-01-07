@@ -1,6 +1,8 @@
 import Products from './components/Products';
+import Amount from './components/Amount';
 import { useState, useEffect } from 'react';
 import { Product } from './model/Product';
+
 
 function App(): JSX.Element {
 
@@ -15,6 +17,7 @@ function App(): JSX.Element {
   return (
     <div>
       <Products products={products} />
+      <Amount />
     </div>
   );
 }
