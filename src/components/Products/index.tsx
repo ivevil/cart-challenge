@@ -1,7 +1,6 @@
-import React from 'react';
-import { Product } from '../model/Product';
+import { Product } from '../../model/Product';
 
-const Products = ({ products }: { products: Product[] }) => {
+const Products = ({ products }: { products: Product[] }): JSX.Element => {
     return (
         <select>
             {products.map((product: any) => {
