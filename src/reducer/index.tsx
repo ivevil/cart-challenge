@@ -9,7 +9,7 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
     const { type, payload } = action
 
     switch (type) {
-        case "ADD_PRODUCTS":
+        case "LIST_PRODUCTS":
             return {
                 ...state,
                 products: payload as ProductInterface[]
@@ -17,7 +17,6 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
         case "ADD_TO_CART":
             let newCart = state.shoppingCart
             newCart.push(payload as ProductInterface)
-
             return {
                 ...state,
                 shoppingCart: newCart
