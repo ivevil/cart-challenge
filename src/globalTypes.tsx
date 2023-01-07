@@ -8,10 +8,12 @@ export interface ProductInterface {
 
 export interface StateInterface {
     products: ProductInterface[];
+    product: ProductInterface[];
     shoppingCart: ProductInterface[];
 }
 
 export interface ActionInterface{
     type: string;
     payload: unknown;
+    select?: unknown;
   }
