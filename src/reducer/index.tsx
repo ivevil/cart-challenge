@@ -39,7 +39,6 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
                 }
             } else {
                 newCart.push(payload as ProductInterface)
-                newCart[0].amount = selectedItem.amount;
                 return {
                     ...state,
                     shoppingCart: newCart
