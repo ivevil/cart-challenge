@@ -1,5 +1,4 @@
 import { StateInterface, ActionInterface, ProductInterface } from "../globalTypes";
-import { Product } from "../model/Product";
 
 export const initialState: StateInterface = {
     products: [],
@@ -48,7 +47,7 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
             let prevCart = state.shoppingCart
 
             const objWithIdIndex = prevCart.findIndex((item) => item.id === payload);
-            
+
             if (objWithIdIndex > -1) {
                 prevCart.splice(objWithIdIndex, 1);
             }
@@ -56,6 +55,11 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
             return {
                 ...state,
                 shoppingCart: prevCart
+            }
+        case "CLEAR_CART":
+            return {
+                ...state,
+                shoppingCart: []
             }
         default: return state
     }

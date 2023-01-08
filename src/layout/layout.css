@@ -54,4 +54,20 @@
   .cart__button-remove-product svg {
     fill: white;
   }
+
+  .cart__button-remove-products {
+    display: flex;
+    align-items: center;
+    width: auto;
+    margin-top: 20px;
+    justify-content: center;
+    padding: 1rem 3rem;
+    border: 1px solid #530101;
+    background-color: #530101;
+    color: white;
+    border-radius: 12px;
+    margin-right: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
   

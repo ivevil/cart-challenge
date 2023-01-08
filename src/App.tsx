@@ -43,6 +43,12 @@ const App: React.FC = () => {
     dispatch({ type: "REMOVE_THE_PRODUCT", payload: id })
   }
 
+  const clearCart = () => {
+    dispatch({
+      type: "CLEAR_CART", payload: product
+    })
+  }
+
   useEffect(() => {
     fetch('products.json')
       .then(response => response.json())
@@ -83,43 +89,48 @@ const App: React.FC = () => {
           <Amount amount={amount} updateAmount={setAmount} product={product} />
           <button onClick={handleClick} className="cart__button-add-product">ADD</button>
         </div>
-        <div className={`box ${error !== '' ? "cart__error-message" : "hidden"}`}>{error}</div>
-        <div className="cart__message">
-          <p>Price: {product !== undefined ? product.price : "0"}</p>
-          <p>x</p>
-          <p className="total">{!isNaN(amount) ? amount : 'invalid number'}</p>
-          <p>TOTAL: {product !== undefined && !(isNaN(amount)) ? (Number(product.price) * Number(amount)).toFixed(2) : "0"} €</p>
+        <div className='cart__products'>
+          <div className={`box ${error !== '' ? "cart__error-message" : "hidden"}`}>{error}</div>
+          <div className="cart__message">
+            <p>Price: {product !== undefined ? product.price : "0"}</p>
+            <p>x</p>
+            <p className="total">{!isNaN(amount) ? amount : 'invalid number'}</p>
+            <p>TOTAL: {product !== undefined && !(isNaN(amount)) ? (Number(product.price) * Number(amount)).toFixed(2) : "0"} €</p>
+          </div>
+          <div className="cart__table">
+            <table>
+              <tbody>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Unit Price</th>
+                  <th>Amount</th>
+                  <th>Price</th>
+                  <th></th>
+                </tr>
+                {state.shoppingCart.length ? (
+                  <>
+                    {state.shoppingCart.map(product => (
+                      <tr key={product.id}>
+                        <th>
+                          {product.productName}
+                        </th>
+                        <th>{product.price}</th>
+                        <th>{product.amount}</th>
+                        <th>{product !== undefined ? (Number(product.price) * Number(product.amount)).toFixed(2) : "0"} €</th>
+                        <th>
+                          <button className="cart__button-remove-product" onClick={() => removeTheProduct(product.id)}>REMOVE</button></th>
+                      </tr>
+                    ))}
+                  </>
+                ) : (
+                  <tr className="empty"><th>Cart is empty</th></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="cart__table">
-          <table>
-            <tbody>
-              <tr>
-                <th>Product Name</th>
-                <th>Unit Price</th>
-                <th>Amount</th>
-                <th>Price</th>
-                <th></th>
-              </tr>
-              {state.shoppingCart.length ? (
-                <>
-                  {state.shoppingCart.map(product => (
-                    <tr key={product.id}>
-                      <th>
-                        {product.productName}
-                      </th>
-                      <th>{product.price}</th>
-                      <th>{product.amount}</th>
-                      <th>{product !== undefined ? (Number(product.price) * Number(product.amount)).toFixed(2) : "0"} €</th>
-                      <th>
-                        <button className="cart__button-remove-product" onClick={() => removeTheProduct(product.id)}>REMOVE</button></th>
-                    </tr>
-                  ))}
-                </>
-              ) : (
-                <tr className="empty"><th>Cart is empty</th></tr>
-              )}
-            </tbody>
-          </table>
+        <div className='cart__final'>
+          <button onClick={clearCart} className="cart__button-remove-products">EMPTY CART</button>
         </div>
       </Layout>
     </ctx.Provider >
