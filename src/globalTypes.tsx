@@ -9,7 +9,7 @@ export interface ProductInterface {
 
 export interface StateInterface {
     products: ProductInterface[];
-    product: ProductInterface[];
+    product: ProductInterface;
     shoppingCart: ProductInterface[];
 }
 

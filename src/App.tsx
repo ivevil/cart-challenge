@@ -14,10 +14,6 @@ const App: React.FC = () => {
   const [selProductId, updateProduct] = useState<string>('')
   const [error, updateMessageError] = useState<string>('')
 
-  const updateAmount = (selectedAmount: number): void => {
-    setAmount(selectedAmount)
-  }
-
   const updateProductId = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     updateProduct(value);
@@ -26,7 +22,7 @@ const App: React.FC = () => {
         product => product.id === value
       ) as ProductInterface
     })
-  };
+  }
 
   const product: ProductInterface = state?.products.find(
     product => product.id === selProductId
@@ -81,7 +77,7 @@ const App: React.FC = () => {
             )
           }
           <Amount amount={amount} updateAmount={setAmount} product={product} />
-          <button onClick={handleClick} className="cart__button-add-product">Add</button>
+          <button onClick={handleClick} className="cart__button-add-product">ADD</button>
         </div>
         <div className={`box ${error !== '' ? "cart__error-message" : "hidden"}`}>{error}</div>
         <div className="cart__message">

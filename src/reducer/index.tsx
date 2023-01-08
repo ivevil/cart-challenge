@@ -3,7 +3,7 @@ import { Product } from "../model/Product";
 
 export const initialState: StateInterface = {
     products: [],
-    product: [],
+    product: { id: '', productName: '', maxAmount: 0, amount: 0, price: 0 },
     shoppingCart: []
 }
 
@@ -19,14 +19,31 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
         case "SELECT_A_PRODUCT":
             return {
                 ...state,
-                product: select as ProductInterface[]
+                product: select as ProductInterface
             }
         case "ADD_TO_CART":
             let newCart = state.shoppingCart
-            newCart.push(payload as ProductInterface)
-            return {
-                ...state,
-                shoppingCart: newCart
+            let selectedItem = state.product
+
+            const isItemInCart = newCart.find(item => item.id === selectedItem.id);
+
+            if (isItemInCart) {
+                newCart.map(item =>
+                    item.id === selectedItem.id && item.amount >= selectedItem.amount
+                      ? { ...item, amount: item.amount + selectedItem.amount }
+                      : item
+                  )
+                return {
+                    ...state,
+                    shoppingCart: newCart
+                }
+            } else {
+                newCart.push(payload as ProductInterface)
+                newCart[0].amount = selectedItem.amount;
+                return {
+                    ...state,
+                    shoppingCart: newCart
+                }
             }
         default: return state
     }
