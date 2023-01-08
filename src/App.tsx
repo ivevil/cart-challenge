@@ -10,10 +10,10 @@ import { ProductInterface } from "./globalTypes";
 const App: React.FC = () => {
 
   const [state, dispatch] = useReducer(reducerFn, initialState);
-  const [amount, setAmount] = useState<string>('1')
+  const [amount, setAmount] = useState<number>(1)
   const [selProductId, updateProduct] = useState<string>('')
 
-  const updateAmount = (selectedAmount: string): void => {
+  const updateAmount = (selectedAmount: number): void => {
     setAmount(selectedAmount)
   }
 
@@ -32,6 +32,7 @@ const App: React.FC = () => {
   ) as ProductInterface
 
   const handleClick = () => {
+    product.amount = amount;
     dispatch({ type: "ADD_TO_CART", payload: product })
   }
 
@@ -41,7 +42,8 @@ const App: React.FC = () => {
       .then(data => dispatch({ type: "LIST_PRODUCTS", payload: data }));
   }, [])
 
-  console.log("product: ", product);
+  // console.log("product: ", product);
+  console.log("state: ", state);
   let maxAmount = product ? product.maxAmount : 'undefined';
 
   return (
@@ -55,6 +57,7 @@ const App: React.FC = () => {
                   state.products.map(product => (
                     <Product
                       key={product.id}
+                      amount={amount}
                       price={product.price}
                       productName={product.productName}
                       id={product.id}
@@ -76,8 +79,36 @@ const App: React.FC = () => {
           <p className="total">{amount}</p>
           <p>TOTAL: {product !== undefined ? (Number(product.price) * Number(amount)).toFixed(2) : "0"} €</p>
         </div>
-      </Layout>
-    </ctx.Provider>
+        <div className="cart__table">
+          <table>
+            <tbody>
+              <tr>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+                <th>Price</th>
+              </tr>
+              {state.shoppingCart.length ? (
+                <>
+                  {state.shoppingCart.map(product => (
+                    <tr>
+                      <th>
+                        {product.productName}
+                      </th>
+                      <th>{product.price}</th>
+                      <th>{product.amount}</th>
+                      <th>{product !== undefined ? (Number(product.price) * Number(product.amount)).toFixed(2) : "0"} €</th>
+                    </tr>
+                  ))}
+                </>
+              ) : (
+                <tr className="empty">Cart is empty</tr>
+              )}
+          </tbody>
+        </table>
+      </div>
+    </Layout>
+    </ctx.Provider >
   )
 }
 

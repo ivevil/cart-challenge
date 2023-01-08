@@ -3,14 +3,14 @@ import { ctx } from "../../context"
 import { StateInterface } from "../../globalTypes"
 
 interface AmountProps {
-    amount: string,
+    amount: number,
     product: { maxAmount: number },
-    updateAmount: (arg: string) => void
+    updateAmount: (arg: number) => void
   }
 
 const Amount: React.FC<AmountProps> = ({ amount, updateAmount, product }) => {
   let maxAmount = product ? product.maxAmount : '';
-    const [selectedAmount, setSelectedAmount] = useState<string>('')
+    const [selectedAmount, setSelectedAmount] = useState<number>(1)
     useEffect(() => {
         setSelectedAmount(amount)
       },[amount])
@@ -19,7 +19,7 @@ const Amount: React.FC<AmountProps> = ({ amount, updateAmount, product }) => {
         <input id="amount" value={selectedAmount} 
         onChange={(
             ev: React.ChangeEvent<HTMLInputElement>,
-        ): void => updateAmount(ev.target.value)} type="number" min="1" max={maxAmount} />
+        ): void => updateAmount(parseInt(ev.target.value))} type="number" min="1" max={maxAmount} />
     )
 }
 

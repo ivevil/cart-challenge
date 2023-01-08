@@ -3,6 +3,7 @@ export interface ProductInterface {
     productName: string;
     maxAmount: number;
     taxRate?: number;
+    amount: number;
     price: number;
 }
 

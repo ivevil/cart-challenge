@@ -1,4 +1,5 @@
 import { StateInterface, ActionInterface, ProductInterface } from "../globalTypes";
+import { Product } from "../model/Product";
 
 export const initialState: StateInterface = {
     products: [],
@@ -22,7 +23,10 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
             }
         case "ADD_TO_CART":
             let newCart = state.shoppingCart
+            console.log("payload", payload);
             newCart.push(payload as ProductInterface)
+            // newCart.push(addAmount as ProductInterface.amount)
+            console.log("newCart:", newCart);
             return {
                 ...state,
                 shoppingCart: newCart
