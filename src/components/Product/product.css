@@ -18,6 +18,15 @@
     padding-top: 20px;
     justify-content: space-between;
   }
+
+  .cart__error-message {
+    background: lightcoral;
+    border: 1px solid darkred;
+    color: darkred;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 10px;
+  }
   
   .cart__selection select {
       font: inherit;
