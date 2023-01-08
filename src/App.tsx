@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [selProductId, updateProduct] = useState<string>('')
   const [error, updateMessageError] = useState<string>('')
 
-  const updateProductId = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const selectProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     updateProduct(value);
     dispatch({
@@ -29,7 +29,7 @@ const App: React.FC = () => {
   ) as ProductInterface
 
   const handleClick = () => {
-    if(!isNaN(amount) && product !== undefined && amount <= maxAmount) {
+    if (!isNaN(amount) && product !== undefined && amount <= maxAmount) {
       product.amount = amount;
       dispatch({ type: "ADD_TO_CART", payload: product })
       updateMessageError("");
@@ -39,16 +39,20 @@ const App: React.FC = () => {
   }
   let maxAmount = product ? product.maxAmount : 0;
 
+  const removeTheProduct = (id: string) => {
+    dispatch({ type: "REMOVE_THE_PRODUCT", payload: id })
+  }
+
   useEffect(() => {
     fetch('products.json')
       .then(response => response.json())
       .then(data => dispatch({ type: "LIST_PRODUCTS", payload: data }));
 
-      if(maxAmount === 0 || amount <= maxAmount) {
-        updateMessageError("");
-      } else {
-        updateMessageError("Sorry, you reached the limit of products. They are only " + maxAmount + " available!");
-      }
+    if (maxAmount === 0 || amount <= maxAmount) {
+      updateMessageError("");
+    } else {
+      updateMessageError("Sorry, you reached the limit of products. They are only " + maxAmount + " available!");
+    }
   }, [])
 
 
@@ -58,7 +62,7 @@ const App: React.FC = () => {
         <div className='cart__selection'>
           {
             state.products.length ? (
-              <select onChange={updateProductId}>
+              <select onChange={selectProduct}>
                 <option>-Select a product-</option>
                 {
                   state.products.map(product => (
@@ -94,6 +98,7 @@ const App: React.FC = () => {
                 <th>Unit Price</th>
                 <th>Amount</th>
                 <th>Price</th>
+                <th></th>
               </tr>
               {state.shoppingCart.length ? (
                 <>
@@ -105,16 +110,18 @@ const App: React.FC = () => {
                       <th>{product.price}</th>
                       <th>{product.amount}</th>
                       <th>{product !== undefined ? (Number(product.price) * Number(product.amount)).toFixed(2) : "0"} €</th>
+                      <th>
+                        <button className="cart__button-remove-product" onClick={() => removeTheProduct(product.id)}>REMOVE</button></th>
                     </tr>
                   ))}
                 </>
               ) : (
                 <tr className="empty"><th>Cart is empty</th></tr>
               )}
-          </tbody>
-        </table>
-      </div>
-    </Layout>
+            </tbody>
+          </table>
+        </div>
+      </Layout>
     </ctx.Provider >
   )
 }

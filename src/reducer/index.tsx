@@ -30,9 +30,9 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
             if (isItemInCart) {
                 newCart.map(item =>
                     item.id === selectedItem.id && item.amount >= selectedItem.amount
-                      ? { ...item, amount: item.amount + selectedItem.amount }
-                      : item
-                  )
+                        ? { ...item, amount: item.amount + selectedItem.amount }
+                        : item
+                )
                 return {
                     ...state,
                     shoppingCart: newCart
@@ -44,6 +44,19 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
                     ...state,
                     shoppingCart: newCart
                 }
+            }
+        case "REMOVE_THE_PRODUCT":
+            let prevCart = state.shoppingCart
+
+            const objWithIdIndex = prevCart.findIndex((item) => item.id === payload);
+            
+            if (objWithIdIndex > -1) {
+                prevCart.splice(objWithIdIndex, 1);
+            }
+
+            return {
+                ...state,
+                shoppingCart: prevCart
             }
         default: return state
     }

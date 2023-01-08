@@ -35,3 +35,23 @@
     cursor: pointer;
     background: darkblue;
   }
+
+  .cart__button-remove-product {
+    display: flex;
+    align-items: center;
+    width: auto;
+    padding: 10px;
+    justify-content: center;
+    border: 1px solid #530101;
+    background-color: #530101;
+    color: white;
+    border-radius: 12px;
+    margin-right: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .cart__button-remove-product svg {
+    fill: white;
+  }
+  
