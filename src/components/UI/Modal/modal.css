@@ -25,6 +25,7 @@
     font-size: 30px;
     font-weight: bold;
     padding-right: 10px;
+    cursor: pointer;
   }
 
   .cart__modal-text {

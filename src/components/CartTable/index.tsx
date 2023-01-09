@@ -1,4 +1,4 @@
-import { ProductInterface, StateInterface } from "../../globalTypes";
+import { StateInterface } from "../../globalTypes";
 import Button from "../UI/Button";
 import Table from "../UI/Table";
 import './carttable.css'
