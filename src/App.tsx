@@ -152,7 +152,7 @@ const App: React.FC = () => {
         </div>
         <div className='cart__final'>
           <div className='cart__final-total'>
-            <h3 className="cart__final-total-message"></h3>
+            <h3 className="cart__final-total-message">{state.totalAmount >= 10 ? "You reached the limit of ten items." : ""}</h3>
           </div>
           <div className='cart__final-total'>
             TOTAL TO PAY: <h3>0 €</h3>
