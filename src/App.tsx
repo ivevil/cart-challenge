@@ -17,7 +17,7 @@ const App: React.FC = () => {
 
   const selectProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
-    if (value !== undefined || value !== "0") {
+    if (value !== undefined || value !== "0") {
       updateProduct(value);
       dispatch({
         type: "SELECT_A_PRODUCT", payload: product, select: state?.products.find(
@@ -37,7 +37,7 @@ const App: React.FC = () => {
       updateMessageError("Sorry, you need to select valid number as an amount!");
     } else if (product === undefined) {
       updateMessageError("Sorry, you need to pick a product!");
-    } else if (amount >= maxAmount) {
+    } else if (amount > maxAmount) {
       updateMessageError("Sorry, there is no enough items. There is/are only " + maxAmount + " available!");
     } else {
       product.amount = amount;
@@ -71,13 +71,13 @@ const App: React.FC = () => {
   }
 
   const checkIfButtonIsDisabled = () => {
-    if(product) {
+    if (product) {
       const isItemInCart = state.shoppingCart.find(item => item.id === product.id);
       let newAmount = 0;
       state.shoppingCart.map(item => {
         return newAmount += item.amount
       })
-  
+
       if (!isItemInCart) {
         return state.totalAmount <= 10 && state.totalAmount + amount <= 10 ? false : true
       } else {
@@ -144,17 +144,17 @@ const App: React.FC = () => {
             <p>TOTAL: {product !== undefined && !(isNaN(amount)) ? (Number(product.price) * Number(amount)).toFixed(2) : "0"} €</p>
           </div>
           <div className="cart__table">
-            <table>
-              <tbody>
-                <tr>
-                  <th>Product Name</th>
-                  <th>Unit Price</th>
-                  <th>Amount</th>
-                  <th>Price</th>
-                  <th></th>
-                </tr>
-                {state.shoppingCart.length ? (
-                  <>
+            {state.shoppingCart.length ? (
+              <>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Product Name</th>
+                      <th>Unit Price</th>
+                      <th>Amount</th>
+                      <th>Price</th>
+                      <th></th>
+                    </tr>
                     {state.shoppingCart.map(product => (
                       <tr key={product.id}>
                         <th>
@@ -167,12 +167,15 @@ const App: React.FC = () => {
                           <button className="cart__button-remove-product" onClick={() => removeTheProduct(product.id)}>REMOVE</button></th>
                       </tr>
                     ))}
-                  </>
-                ) : (
-                  <tr className="empty"><th>Cart is empty</th></tr>
-                )}
-              </tbody>
-            </table>
+                  </tbody>
+                </table>
+              </>
+            ) : (
+              <div className="cart__empty">
+                <h2>Cart is empty</h2>
+              </div>
+            )}
+
           </div>
         </div>
 

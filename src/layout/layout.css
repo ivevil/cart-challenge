@@ -108,3 +108,7 @@ button[disabled] {
   margin-right: 1rem;
   font-weight: bold;
 }
+
+.cart__empty h2 {
+  text-align: center;
+}

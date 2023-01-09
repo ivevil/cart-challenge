@@ -1,10 +1,10 @@
 import { ProductInterface } from "../../globalTypes";
 import './product.css'
 
-const Products: React.FC<ProductInterface> = ({ productName, price, id }) => {
+const Products: React.FC<ProductInterface> = ({ productName, price, id, maxAmount }) => {
 
     return (
-        <option value={id}>{productName} - ({price}€)</option>
+        <option disabled={maxAmount < 1 ? true : false} value={id}>{productName} - ({price}€)</option>
     )
 }
 
