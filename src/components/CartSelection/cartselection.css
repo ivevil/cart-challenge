@@ -10,4 +10,14 @@
     font-weight: bold;
     border-radius: 6px;
 }
+
+.cart__add-product {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  
+  .cart__add-product input {
+    height: 20px;
+  }
   

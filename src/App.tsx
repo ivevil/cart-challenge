@@ -1,6 +1,7 @@
 import Modal from './components/UI/Modal';
 import Button from './components/UI/Button';
 import CartSelection from './components/CartSelection';
+import CartTable from './components/CartTable';
 import { Layout } from './components/UI/Layout';
 import { useEffect, useState, useReducer } from 'react';
 import { reducerFn, initialState } from './reducer';
@@ -110,7 +111,6 @@ const App: React.FC = () => {
         <h1>CART</h1>
 
         <CartSelection state={state} selectProduct={selectProduct} amount={amount} handleClick={handleClick} setAmount={setAmount} product={product} checkIfButtonIsDisabled={checkIfButtonIsDisabled()} />
-
         <div className="cart__products">
           <CartMessages error={error}>
             <p>Price: {product !== undefined ? product.price : "0"}</p>
@@ -118,40 +118,7 @@ const App: React.FC = () => {
             <p>{!isNaN(amount) ? amount : 'invalid number'}</p>
             <p>TOTAL: {product !== undefined && !(isNaN(amount)) ? (Number(product.price) * Number(amount)).toFixed(2) : "0"} €</p>
           </CartMessages>
-          <div className="cart__table">
-            {state.shoppingCart.length ? (
-              <>
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>PRODUCT NAME</th>
-                      <th>UNIT PRICE</th>
-                      <th>AMOUNT</th>
-                      <th>PRICE</th>
-                      <th></th>
-                    </tr>
-                    {state.shoppingCart.map(product => (
-                      <tr key={product.id}>
-                        <th>
-                          {product.productName}
-                        </th>
-                        <th>{product.price}</th>
-                        <th>{product.amount}</th>
-                        <th>{product !== undefined ? (Number(product.price) * Number(product.amount)).toFixed(2) : "0"} €</th>
-                        <th>
-                          <Button buttonClass={"danger"} onClick={() => removeTheProduct(product.id)} disabled={false}>REMOVE</Button>
-                        </th>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </>
-            ) : (
-              <div className="cart__empty">
-                <h2>Cart is empty</h2>
-              </div>
-            )}
-          </div>
+          <CartTable state={state} removeTheProduct={removeTheProduct}></CartTable>
         </div>
 
         <div className="cart__final">

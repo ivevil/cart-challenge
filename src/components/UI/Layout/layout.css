@@ -19,34 +19,6 @@
   padding: 20px;
 }
 
-.cart__add-product {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-}
-
-.cart__add-product input {
-  height: 20px;
-}
-
-.cart__button-remove-product {
-  display: flex;
-  align-items: center;
-  width: auto;
-  padding: 10px;
-  justify-content: center;
-  border: 1px solid #530101;
-  background-color: #530101;
-  color: white;
-  border-radius: 12px;
-  margin-right: 1rem;
-  font-weight: bold;
-}
-
-.cart__button-remove-product svg {
-  fill: white;
-}
-
 .cart__final-total {
   text-align: right;
   margin-top: 20px;
