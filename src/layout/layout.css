@@ -12,6 +12,13 @@
   text-align: center;
 }
 
+.cart__selection-wrapper {
+  background: darkgray;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  padding: 20px;
+}
+
 .cart__add-product {
   display: flex;
   width: 100%;
@@ -22,16 +29,7 @@
   height: 20px;
 }
 
-.cart__button-add-product {
-  width: 100px;
-  height: 25px;
-  font-weight: bold;
-  border: unset;
-  background: #006496;
-  color: white;
-}
-
-.cart__button-add-product:hover,
+button:hover,
 button:not(:disabled):hover,
 button:not([disabled]):hover {
   cursor: pointer;

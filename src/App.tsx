@@ -1,11 +1,11 @@
 import Product from './components/Product';
 import Amount from './components/Amount';
 import Modal from './components/Modal';
+import CartSelection from './components/CartSelection';
 import { Layout } from './layout';
 import { useEffect, useState, useReducer } from 'react';
 import { reducerFn, initialState } from './reducer';
 import { ProductInterface } from "./globalTypes";
-
 
 const App: React.FC = () => {
 
@@ -15,8 +15,8 @@ const App: React.FC = () => {
   const [error, updateMessageError] = useState<string>('')
   const [modal, showModal] = useState(false);
 
-  const selectProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
+  const selectProduct = (id: string) => {
+    const value = id;
     if (value !== undefined || value !== "0") {
       updateProduct(value);
       dispatch({
@@ -110,32 +110,9 @@ const App: React.FC = () => {
       <Layout>
         <h1>CART</h1>
 
-        <div className='cart__selection'>
-          {
-            state.products.length ? (
-              <select onChange={selectProduct}>
-                <option value="0">-Select a product-</option>
-                {
-                  state.products.map(product => (
-                    <Product
-                      key={product.id}
-                      amount={amount}
-                      price={product.price}
-                      productName={product.productName}
-                      id={product.id}
-                      maxAmount={product.maxAmount}
-                    />
-                  ))}
-              </select>
-            ) : (
-              <h2>Loading...</h2>
-            )
-          }
-          <Amount amount={amount} updateAmount={setAmount} product={product} />
-          <button onClick={handleClick} className="cart__button-add-product" disabled={checkIfButtonIsDisabled()}>ADD</button>
-        </div>
-
-        <div className='cart__products'>
+        <CartSelection state={state} selectProduct={selectProduct} amount={amount} handleClick={handleClick} setAmount={setAmount} product={product} checkIfButtonIsDisabled={checkIfButtonIsDisabled()} />
+        
+        <div className="cart__products">
           <div className={`box ${error !== '' ? "cart__error-message" : "hidden"}`}>{error}</div>
           <div className="cart__message">
             <p>Price: {product !== undefined ? product.price : "0"}</p>
@@ -179,18 +156,19 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className='cart__final'>
-          <div className='cart__final-total'>
+        <div className="cart__final">
+          <div className="cart__final-total">
             <h3 className="cart__final-total-message">{state.totalAmount >= 10 ? "You reached the limit of ten items." : ""}</h3>
           </div>
-          <div className='cart__final-total'>
+          <div className="cart__final-total">
             TOTAL TO PAY: <h3>{getTotal()} €</h3>
           </div>
-          <div className='cart__final-checkout'>
+          <div className="cart__final-checkout">
             <button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} className="cart__button-remove-products">EMPTY CART</button>
             <button disabled={state.totalAmount < 1 ? true : false} onClick={buyItems} className="cart__button-buy-products">BUY</button>
           </div>
         </div>
+        
       </Layout>
       <Modal open={modal} toggle={toggle}>
         <div className="cart__modal-text">

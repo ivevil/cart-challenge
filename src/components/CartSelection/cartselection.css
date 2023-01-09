@@ -1,0 +1,28 @@
+.cart__selection {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.cart__selection select {
+    font: inherit;
+    padding: 0.5rem 3rem;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.cart__button-add-product {
+    display: flex;
+    align-items: center;
+    width: auto;
+    justify-content: center;
+    padding: 1rem 3rem;
+    border: 1px solid #40005d;
+    background-color: #40005d;
+    color: white;
+    border-radius: 12px;
+    margin-right: 1rem;
+    font: inherit;
+    cursor: pointer;
+  }
+  
