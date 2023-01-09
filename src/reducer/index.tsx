@@ -3,7 +3,8 @@ import { StateInterface, ActionInterface, ProductInterface } from "../globalType
 export const initialState: StateInterface = {
     products: [],
     product: { id: '', productName: '', maxAmount: 0, amount: 0, price: 0 },
-    shoppingCart: []
+    shoppingCart: [],
+    totalAmount: 0
 }
 
 export const reducerFn = (state: StateInterface, action: ActionInterface): StateInterface => {
@@ -27,20 +28,31 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
             const isItemInCart = newCart.find(item => item.id === selectedItem.id);
 
             if (isItemInCart) {
-                newCart.map(item =>
-                    item.id === selectedItem.id && item.amount >= selectedItem.amount
+
+                let newAmount = 0;
+                newCart.map(item => {
+                    newAmount += item.amount
+                    return item.id === selectedItem.id && item.amount >= selectedItem.amount
                         ? { ...item, amount: item.amount + selectedItem.amount }
                         : item
-                )
+                })
+
                 return {
                     ...state,
-                    shoppingCart: newCart
+                    shoppingCart: newCart,
+                    totalAmount: newAmount
                 }
             } else {
                 newCart.push(payload as ProductInterface)
+                let newAmount = state.totalAmount;
+                newCart.map(item =>
+                    newAmount = state.totalAmount + item.amount
+                )
+
                 return {
                     ...state,
-                    shoppingCart: newCart
+                    shoppingCart: newCart,
+                    totalAmount: newAmount
                 }
             }
         case "REMOVE_THE_PRODUCT":
@@ -52,14 +64,21 @@ export const reducerFn = (state: StateInterface, action: ActionInterface): State
                 prevCart.splice(objWithIdIndex, 1);
             }
 
+            let newAmount = 0;
+            prevCart.map(item =>
+                newAmount += item.amount
+            )
+
             return {
                 ...state,
-                shoppingCart: prevCart
+                shoppingCart: prevCart,
+                totalAmount: newAmount
             }
         case "CLEAR_CART":
             return {
                 ...state,
-                shoppingCart: []
+                shoppingCart: [],
+                totalAmount: 0
             }
         default: return state
     }

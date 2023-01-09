@@ -29,14 +29,17 @@ const App: React.FC = () => {
   ) as ProductInterface
 
   const handleClick = () => {
-    if (!isNaN(amount) && product !== undefined && amount <= maxAmount) {
+    if (!isNaN(amount) && product !== undefined && amount <= maxAmount && amount !== 0) {
       product.amount = amount;
+
       dispatch({ type: "ADD_TO_CART", payload: product })
+
       updateMessageError("");
     } else {
       updateMessageError("Please pick the correct number for amount and select the product!")
     }
   }
+
   let maxAmount = product ? product.maxAmount : 0;
 
   const removeTheProduct = (id: string) => {
@@ -49,6 +52,23 @@ const App: React.FC = () => {
     })
   }
 
+  const checkIfButtonIsDisabled = () => {
+
+    const isItemInCart = state.shoppingCart.find(item => item.id === product.id);
+
+    let newAmount = 0;
+    state.shoppingCart.map(item => {
+      return newAmount += item.amount
+    })
+
+    if (!isItemInCart) {
+      return state.totalAmount <= 10 && state.totalAmount + amount <= 10 ? false : true
+    } else {
+      return state.totalAmount <= 10 && newAmount - isItemInCart.amount + amount <= 10 ? false : true
+    }
+  }
+
+
   useEffect(() => {
     fetch('products.json')
       .then(response => response.json())
@@ -57,14 +77,15 @@ const App: React.FC = () => {
     if (maxAmount === 0 || amount <= maxAmount) {
       updateMessageError("");
     } else {
-      updateMessageError("Sorry, you reached the limit of products. They are only " + maxAmount + " available!");
+      updateMessageError("Sorry, there is no enough products. They are only " + maxAmount + " available!");
     }
-  }, [])
 
+  }, [])
 
   return (
     <ctx.Provider value={state}>
       <Layout>
+        <h1>CART</h1>
         <div className='cart__selection'>
           {
             state.products.length ? (
@@ -87,7 +108,7 @@ const App: React.FC = () => {
             )
           }
           <Amount amount={amount} updateAmount={setAmount} product={product} />
-          <button onClick={handleClick} className="cart__button-add-product">ADD</button>
+          <button onClick={handleClick} className="cart__button-add-product" disabled={checkIfButtonIsDisabled()}>ADD</button>
         </div>
         <div className='cart__products'>
           <div className={`box ${error !== '' ? "cart__error-message" : "hidden"}`}>{error}</div>
@@ -130,7 +151,15 @@ const App: React.FC = () => {
           </div>
         </div>
         <div className='cart__final'>
-          <button onClick={clearCart} className="cart__button-remove-products">EMPTY CART</button>
+          <div className='cart__final-total'>
+            <h3 className="cart__final-total-message"></h3>
+          </div>
+          <div className='cart__final-total'>
+            TOTAL TO PAY: <h3>0 €</h3>
+          </div>
+          <div className='cart__final-checkout'>
+            <button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} className="cart__button-remove-products">EMPTY CART</button>
+          </div>
         </div>
       </Layout>
     </ctx.Provider >

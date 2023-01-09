@@ -11,6 +11,7 @@ export interface StateInterface {
     products: ProductInterface[];
     product: ProductInterface;
     shoppingCart: ProductInterface[];
+    totalAmount: number;
 }
 
 export interface ActionInterface{
