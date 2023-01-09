@@ -1,8 +1,9 @@
 import { StateInterface, ProductInterface } from "../../../globalTypes";
 import Product from '../Product';
-import Amount from '../Amount';
+import Amount from '../../UI/Amount';
 import Button from '../../UI/Button';
 import './cartselection.css';
+import SliderAmount from "../../UI/SliderAmount";
 
 interface CartProps {
     state: StateInterface;
@@ -41,6 +42,7 @@ const CartSelection: React.FC<CartProps> = ({ state, selectProduct, amount, hand
                         <h2>Loading...</h2>
                     )
                 }
+                <SliderAmount amount={amount} updateAmount={setAmount} />
                 <Amount amount={amount} updateAmount={setAmount} product={product} />
                 <Button onClick={handleClick} disabled={checkIfButtonIsDisabled} buttonClass={"primary"}>
                     ADD
