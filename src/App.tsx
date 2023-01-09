@@ -3,7 +3,6 @@ import Amount from './components/Amount';
 import Modal from './components/Modal';
 import { Layout } from './layout';
 import { useEffect, useState, useReducer } from 'react';
-import { ctx } from './context';
 import { reducerFn, initialState } from './reducer';
 import { ProductInterface } from "./globalTypes";
 
@@ -18,12 +17,14 @@ const App: React.FC = () => {
 
   const selectProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
-    updateProduct(value);
-    dispatch({
-      type: "SELECT_A_PRODUCT", payload: product, select: state?.products.find(
-        product => product.id === value
-      ) as ProductInterface
-    })
+    if (value !== undefined || value !== "0") {
+      updateProduct(value);
+      dispatch({
+        type: "SELECT_A_PRODUCT", payload: product, select: state?.products.find(
+          product => product.id === value
+        ) as ProductInterface
+      })
+    }
   }
 
   const product: ProductInterface = state?.products.find(
@@ -31,15 +32,19 @@ const App: React.FC = () => {
   ) as ProductInterface
 
   const handleClick = () => {
-    if (!isNaN(amount) && product !== undefined && amount <= maxAmount && amount !== 0) {
-      product.amount = amount;
 
-      dispatch({ type: "ADD_TO_CART", payload: product })
-
-      updateMessageError("");
+    if (isNaN(amount) || amount === 0) {
+      updateMessageError("Sorry, you need to select valid number as an amount!");
+    } else if (product === undefined) {
+      updateMessageError("Sorry, you need to pick a product!");
+    } else if (amount >= maxAmount) {
+      updateMessageError("Sorry, there is no enough items. There is/are only " + maxAmount + " available!");
     } else {
-      updateMessageError("Please pick the correct number for amount and select the product!")
+      product.amount = amount;
+      dispatch({ type: "ADD_TO_CART", payload: product })
+      updateMessageError("");
     }
+
   }
 
   let maxAmount = product ? product.maxAmount : 0;
@@ -56,6 +61,9 @@ const App: React.FC = () => {
 
   const buyItems = () => {
     toggle();
+    dispatch({
+      type: "CLEAR_CART", payload: product
+    })
   }
 
   const toggle = () => {
@@ -63,16 +71,18 @@ const App: React.FC = () => {
   }
 
   const checkIfButtonIsDisabled = () => {
-    const isItemInCart = state.shoppingCart.find(item => item.id === product.id);
-    let newAmount = 0;
-    state.shoppingCart.map(item => {
-      return newAmount += item.amount
-    })
-
-    if (!isItemInCart) {
-      return state.totalAmount <= 10 && state.totalAmount + amount <= 10 ? false : true
-    } else {
-      return state.totalAmount <= 10 && newAmount - isItemInCart.amount + amount <= 10 ? false : true
+    if(product) {
+      const isItemInCart = state.shoppingCart.find(item => item.id === product.id);
+      let newAmount = 0;
+      state.shoppingCart.map(item => {
+        return newAmount += item.amount
+      })
+  
+      if (!isItemInCart) {
+        return state.totalAmount <= 10 && state.totalAmount + amount <= 10 ? false : true
+      } else {
+        return state.totalAmount <= 10 && newAmount - isItemInCart.amount + amount <= 10 ? false : true
+      }
     }
   }
 
@@ -82,7 +92,7 @@ const App: React.FC = () => {
 
     state.shoppingCart.map(item => {
       itemPrice = item.price * item.amount
-      total += itemPrice
+      return total += itemPrice
     })
     return total.toFixed(2);
   }
@@ -93,16 +103,10 @@ const App: React.FC = () => {
       .then(response => response.json())
       .then(data => dispatch({ type: "LIST_PRODUCTS", payload: data }));
 
-    if (maxAmount === 0 || amount <= maxAmount) {
-      updateMessageError("");
-    } else {
-      updateMessageError("Sorry, there is no enough products. They are only " + maxAmount + " available!");
-    }
-
   }, [])
 
   return (
-    <ctx.Provider value={state}>
+    <>
       <Layout>
         <h1>CART</h1>
 
@@ -110,7 +114,7 @@ const App: React.FC = () => {
           {
             state.products.length ? (
               <select onChange={selectProduct}>
-                <option>-Select a product-</option>
+                <option value="0">-Select a product-</option>
                 {
                   state.products.map(product => (
                     <Product
@@ -188,11 +192,9 @@ const App: React.FC = () => {
       <Modal open={modal} toggle={toggle}>
         <div className="cart__modal-text">
           <h3>Yaay!!! You finished your shopping!</h3>
-          <p>You bought:</p> 
-          {state.shoppingCart.map((item) => <li key={item.id}>{item.productName}</li> )}
         </div>
       </Modal>
-    </ctx.Provider >
+    </>
   )
 }
 
