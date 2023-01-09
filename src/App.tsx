@@ -5,6 +5,7 @@ import { Layout } from './components/UI/Layout';
 import { useEffect, useState, useReducer } from 'react';
 import { reducerFn, initialState } from './reducer';
 import { ProductInterface } from "./globalTypes";
+import CartMessages from './components/CartMessages';
 
 const App: React.FC = () => {
 
@@ -109,15 +110,14 @@ const App: React.FC = () => {
         <h1>CART</h1>
 
         <CartSelection state={state} selectProduct={selectProduct} amount={amount} handleClick={handleClick} setAmount={setAmount} product={product} checkIfButtonIsDisabled={checkIfButtonIsDisabled()} />
-        
+
         <div className="cart__products">
-          <div className={`box ${error !== '' ? "cart__error-message" : "hidden"}`}>{error}</div>
-          <div className="cart__message">
+          <CartMessages error={error}>
             <p>Price: {product !== undefined ? product.price : "0"}</p>
             <p>x</p>
-            <p className="total">{!isNaN(amount) ? amount : 'invalid number'}</p>
+            <p>{!isNaN(amount) ? amount : 'invalid number'}</p>
             <p>TOTAL: {product !== undefined && !(isNaN(amount)) ? (Number(product.price) * Number(amount)).toFixed(2) : "0"} €</p>
-          </div>
+          </CartMessages>
           <div className="cart__table">
             {state.shoppingCart.length ? (
               <>
@@ -139,7 +139,8 @@ const App: React.FC = () => {
                         <th>{product.amount}</th>
                         <th>{product !== undefined ? (Number(product.price) * Number(product.amount)).toFixed(2) : "0"} €</th>
                         <th>
-                          <button className="cart__button-remove-product" onClick={() => removeTheProduct(product.id)}>REMOVE</button></th>
+                          <Button buttonClass={"danger"} onClick={() => removeTheProduct(product.id)} disabled={false}>REMOVE</Button>
+                        </th>
                       </tr>
                     ))}
                   </tbody>
@@ -165,7 +166,7 @@ const App: React.FC = () => {
             <Button disabled={state.totalAmount < 1 ? true : false} onClick={buyItems} buttonClass={"primary"}>BUY</Button>
           </div>
         </div>
-        
+
       </Layout>
       <Modal open={modal} toggle={toggle}>
         <div className="cart__modal-text">
