@@ -1,6 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
-import { ctx } from "../../context"
-import { StateInterface } from "../../globalTypes"
+import { useState, useEffect } from 'react';
 
 interface AmountProps {
     amount: number,
