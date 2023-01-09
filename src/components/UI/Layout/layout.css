@@ -29,20 +29,6 @@
   height: 20px;
 }
 
-button:hover,
-button:not(:disabled):hover,
-button:not([disabled]):hover {
-  cursor: pointer;
-  background: black;
-}
-
-button:disabled,
-button[disabled] {
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
-}
-
 .cart__button-remove-product {
   display: flex;
   align-items: center;

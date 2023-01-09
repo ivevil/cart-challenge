@@ -1,0 +1,37 @@
+button:hover,
+button:not(:disabled):hover,
+button:not([disabled]):hover {
+    cursor: pointer;
+    background-color: #014b6f;
+}
+
+button:disabled,
+button[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    width: auto;
+    justify-content: center;
+    padding: 1rem 3rem;
+    border-radius: 12px;
+    margin-right: 1rem;
+    font: inherit;
+    cursor: pointer;
+}
+
+.primary {
+    border: 1px solid #006496;
+    background-color: #006496;
+    color: white;
+}
+
+.danger {
+    border: 1px solid #530101;
+    background-color: #530101;
+    color: white;
+}

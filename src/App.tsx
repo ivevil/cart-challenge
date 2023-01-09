@@ -1,8 +1,7 @@
-import Product from './components/Product';
-import Amount from './components/Amount';
-import Modal from './components/Modal';
+import Modal from './components/UI/Modal';
+import Button from './components/UI/Button';
 import CartSelection from './components/CartSelection';
-import { Layout } from './layout';
+import { Layout } from './components/UI/Layout';
 import { useEffect, useState, useReducer } from 'react';
 import { reducerFn, initialState } from './reducer';
 import { ProductInterface } from "./globalTypes";
@@ -97,7 +96,6 @@ const App: React.FC = () => {
     return total.toFixed(2);
   }
 
-
   useEffect(() => {
     fetch('products.json')
       .then(response => response.json())
@@ -126,10 +124,10 @@ const App: React.FC = () => {
                 <table>
                   <tbody>
                     <tr>
-                      <th>Product Name</th>
-                      <th>Unit Price</th>
-                      <th>Amount</th>
-                      <th>Price</th>
+                      <th>PRODUCT NAME</th>
+                      <th>UNIT PRICE</th>
+                      <th>AMOUNT</th>
+                      <th>PRICE</th>
                       <th></th>
                     </tr>
                     {state.shoppingCart.map(product => (
@@ -152,7 +150,6 @@ const App: React.FC = () => {
                 <h2>Cart is empty</h2>
               </div>
             )}
-
           </div>
         </div>
 
@@ -164,8 +161,8 @@ const App: React.FC = () => {
             TOTAL TO PAY: <h3>{getTotal()} €</h3>
           </div>
           <div className="cart__final-checkout">
-            <button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} className="cart__button-remove-products">EMPTY CART</button>
-            <button disabled={state.totalAmount < 1 ? true : false} onClick={buyItems} className="cart__button-buy-products">BUY</button>
+            <Button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} buttonClass={"danger"}>EMPTY CART</Button>
+            <Button disabled={state.totalAmount < 1 ? true : false} onClick={buyItems} buttonClass={"primary"}>BUY</Button>
           </div>
         </div>
         
