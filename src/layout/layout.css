@@ -32,9 +32,10 @@
 }
 
 .cart__button-add-product:hover,
-button:not(:disabled):hover {
+button:not(:disabled):hover,
+button:not([disabled]):hover {
   cursor: pointer;
-  background: darkblue;
+  background: black;
 }
 
 button:disabled,
@@ -56,7 +57,6 @@ button[disabled] {
   border-radius: 12px;
   margin-right: 1rem;
   font-weight: bold;
-  cursor: pointer;
 }
 
 .cart__button-remove-product svg {
@@ -76,7 +76,6 @@ button[disabled] {
   border-radius: 12px;
   margin-right: 1rem;
   font-weight: bold;
-  cursor: pointer;
 }
 
 .cart__final-total {
@@ -87,4 +86,25 @@ button[disabled] {
 
 .cart__final-total-message {
   color: rgb(127, 3, 3);
+}
+
+.cart__final-checkout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cart__button-buy-products {
+  display: flex;
+  align-items: center;
+  width: auto;
+  margin-top: 20px;
+  justify-content: center;
+  padding: 1rem 3rem;
+  border: 1px solid #006496;
+  background-color: #006496;
+  color: white;
+  border-radius: 12px;
+  margin-right: 1rem;
+  font-weight: bold;
 }

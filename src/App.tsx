@@ -53,9 +53,7 @@ const App: React.FC = () => {
   }
 
   const checkIfButtonIsDisabled = () => {
-
     const isItemInCart = state.shoppingCart.find(item => item.id === product.id);
-
     let newAmount = 0;
     state.shoppingCart.map(item => {
       return newAmount += item.amount
@@ -66,6 +64,17 @@ const App: React.FC = () => {
     } else {
       return state.totalAmount <= 10 && newAmount - isItemInCart.amount + amount <= 10 ? false : true
     }
+  }
+
+  const getTotal = () => {
+    let total = 0;
+    let itemPrice = 0;
+
+    state.shoppingCart.map(item => {
+      itemPrice = item.price * item.amount
+      total += itemPrice
+    })
+    return total.toFixed(2);
   }
 
 
@@ -155,10 +164,11 @@ const App: React.FC = () => {
             <h3 className="cart__final-total-message">{state.totalAmount >= 10 ? "You reached the limit of ten items." : ""}</h3>
           </div>
           <div className='cart__final-total'>
-            TOTAL TO PAY: <h3>0 €</h3>
+            TOTAL TO PAY: <h3>{getTotal()} €</h3>
           </div>
           <div className='cart__final-checkout'>
             <button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} className="cart__button-remove-products">EMPTY CART</button>
+            <button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} className="cart__button-buy-products">BUY</button>
           </div>
         </div>
       </Layout>
