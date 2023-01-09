@@ -23,3 +23,12 @@ table tr:first-child {
   color:#006496;
   border-bottom: 1px solid white;
 }
+
+.cart__modal-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

@@ -1,0 +1,28 @@
+.cart__modal-overlay {
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .cart__modal {
+    display: block;
+    background: white;
+    width: 70%;
+    height: 70%;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .cart__modal-close {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 30px;
+    font-weight: bold;
+    padding-right: 10px;
+  }

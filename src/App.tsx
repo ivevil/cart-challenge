@@ -1,5 +1,6 @@
 import Product from './components/Product';
 import Amount from './components/Amount';
+import Modal from './components/Modal';
 import { Layout } from './layout';
 import { useEffect, useState, useReducer } from 'react';
 import { ctx } from './context';
@@ -13,6 +14,7 @@ const App: React.FC = () => {
   const [amount, setAmount] = useState<number>(1)
   const [selProductId, updateProduct] = useState<string>('')
   const [error, updateMessageError] = useState<string>('')
+  const [modal, showModal] = useState(false);
 
   const selectProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
@@ -50,6 +52,14 @@ const App: React.FC = () => {
     dispatch({
       type: "CLEAR_CART", payload: product
     })
+  }
+
+  const buyItems = () => {
+    toggle();
+  }
+
+  const toggle = () => {
+    showModal(!modal);
   }
 
   const checkIfButtonIsDisabled = () => {
@@ -95,6 +105,7 @@ const App: React.FC = () => {
     <ctx.Provider value={state}>
       <Layout>
         <h1>CART</h1>
+
         <div className='cart__selection'>
           {
             state.products.length ? (
@@ -119,6 +130,7 @@ const App: React.FC = () => {
           <Amount amount={amount} updateAmount={setAmount} product={product} />
           <button onClick={handleClick} className="cart__button-add-product" disabled={checkIfButtonIsDisabled()}>ADD</button>
         </div>
+
         <div className='cart__products'>
           <div className={`box ${error !== '' ? "cart__error-message" : "hidden"}`}>{error}</div>
           <div className="cart__message">
@@ -159,6 +171,7 @@ const App: React.FC = () => {
             </table>
           </div>
         </div>
+
         <div className='cart__final'>
           <div className='cart__final-total'>
             <h3 className="cart__final-total-message">{state.totalAmount >= 10 ? "You reached the limit of ten items." : ""}</h3>
@@ -168,10 +181,17 @@ const App: React.FC = () => {
           </div>
           <div className='cart__final-checkout'>
             <button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} className="cart__button-remove-products">EMPTY CART</button>
-            <button disabled={state.totalAmount < 1 ? true : false} onClick={clearCart} className="cart__button-buy-products">BUY</button>
+            <button disabled={state.totalAmount < 1 ? true : false} onClick={buyItems} className="cart__button-buy-products">BUY</button>
           </div>
         </div>
       </Layout>
+      <Modal open={modal} toggle={toggle}>
+        <div className="cart__modal-text">
+          <h3>Yaay!!! You finished your shopping!</h3>
+          <p>You bought:</p> 
+          {state.shoppingCart.map((item) => <li key={item.id}>{item.productName}</li> )}
+        </div>
+      </Modal>
     </ctx.Provider >
   )
 }
