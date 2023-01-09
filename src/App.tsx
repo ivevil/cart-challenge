@@ -1,8 +1,8 @@
 import Modal from './components/UI/Modal';
-import CartSelection from './components/CartSelection';
-import CartTable from './components/CartTable';
-import CartMessages from './components/CartMessages';
-import CartTotal from './components/CartTotal';
+import CartSelection from './components/Cart/CartSelection';
+import CartTable from './components/Cart/CartTable';
+import CartMessages from './components/Cart/CartMessages';
+import CartTotal from './components/Cart/CartTotal';
 import { Layout } from './components/UI/Layout';
 import { useEffect, useState, useReducer } from 'react';
 import { reducerFn, initialState } from './reducer';
@@ -17,7 +17,8 @@ const App: React.FC = () => {
 
   const selectProduct = (id: string) => {
     const value = id;
-    if (value !== undefined || value !== "0") {
+
+    if (value !== undefined && value !== "0") {
       dispatch({
         type: "SELECT_A_PRODUCT", payload: product, select: state?.products.find(
           product => product.id === value

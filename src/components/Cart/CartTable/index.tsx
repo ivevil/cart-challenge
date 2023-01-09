@@ -1,6 +1,6 @@
-import { StateInterface } from "../../globalTypes";
-import Button from "../UI/Button";
-import Table from "../UI/Table";
+import { StateInterface } from "../../../globalTypes";
+import Button from "../../UI/Button";
+import Table from "../../UI/Table";
 import './carttable.css'
 
 interface CartTableProps {

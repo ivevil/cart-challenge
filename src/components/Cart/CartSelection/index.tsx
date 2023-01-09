@@ -1,7 +1,7 @@
-import { StateInterface, ProductInterface } from "../../globalTypes";
+import { StateInterface, ProductInterface } from "../../../globalTypes";
 import Product from '../Product';
 import Amount from '../Amount';
-import Button from '../UI/Button';
+import Button from '../../UI/Button';
 import './cartselection.css';
 
 interface CartProps {

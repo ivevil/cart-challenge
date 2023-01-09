@@ -1,5 +1,5 @@
-import { StateInterface } from '../../globalTypes';
-import Button from '../UI/Button';
+import { StateInterface } from '../../../globalTypes';
+import Button from '../../UI/Button';
 import './carttotal.css'
 
 interface CartTotalProps {
