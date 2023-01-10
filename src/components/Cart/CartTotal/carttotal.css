@@ -1,0 +1,15 @@
+.cart__final-total {
+    text-align: right;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .cart__final-total-message {
+    color: rgb(127, 3, 3);
+  }
+  
+  .cart__final-checkout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }

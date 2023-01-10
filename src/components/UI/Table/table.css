@@ -1,0 +1,4 @@
+tr th:last-child {
+    display: flex;
+    justify-content: center;
+}

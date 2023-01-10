@@ -14,3 +14,7 @@ table tr:first-child {
   color:#006496;
   border-bottom: 1px solid white;
 }
+
+.cart__empty h2 {
+  text-align: center;
+}

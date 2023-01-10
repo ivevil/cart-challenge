@@ -18,38 +18,3 @@
   border-top-right-radius: 25px;
   padding: 20px;
 }
-
-.cart__final-total {
-  text-align: right;
-  margin-top: 20px;
-  font-weight: bold;
-}
-
-.cart__final-total-message {
-  color: rgb(127, 3, 3);
-}
-
-.cart__final-checkout {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.cart__button-buy-products {
-  display: flex;
-  align-items: center;
-  width: auto;
-  margin-top: 20px;
-  justify-content: center;
-  padding: 1rem 3rem;
-  border: 1px solid #006496;
-  background-color: #006496;
-  color: white;
-  border-radius: 12px;
-  margin-right: 1rem;
-  font-weight: bold;
-}
-
-.cart__empty h2 {
-  text-align: center;
-}
