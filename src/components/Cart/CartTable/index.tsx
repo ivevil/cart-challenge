@@ -1,5 +1,6 @@
 import { StateInterface } from "../../../globalTypes";
 import Button from "../../UI/Button";
+import Icon from "../../UI/Icon";
 import Table from "../../UI/Table";
 import './carttable.css'
 
@@ -27,7 +28,9 @@ const CartTable: React.FC<CartTableProps> = ({ state, removeTheProduct }) => {
                                     <th>{product.amount}</th>
                                     <th>{product !== undefined ? (Number(product.price) * Number(product.amount)).toFixed(2) : "0"} €</th>
                                     <th>
-                                        <Button buttonClass={"danger"} onClick={() => removeTheProduct(product.id)} disabled={false}>REMOVE</Button>
+                                        <Button buttonClass={"danger"} onClick={() => removeTheProduct(product.id)} disabled={false}>
+                                            <Icon color="white" />
+                                        </Button>
                                     </th>
                                 </tr>
                             ))}
