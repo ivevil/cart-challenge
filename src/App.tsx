@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [amount, setAmount] = useState<number>(1)
   const [error, updateMessageError] = useState<string>('')
   const [modal, showModal] = useState(false);
-  const [selAmount, setSelectedAmount] = useState<string>('')
+  const [selectedTotal, setSelectedTotal] = useState<string>('')
 
   const selectProduct = (id: string) => {
     const value = id;
@@ -91,8 +91,8 @@ const App: React.FC = () => {
   }
 
   const calculateTotal = (price: number, amount: number) => window.setTimeout(function () { 
-    let selectedAmount = (price * amount).toFixed(2) 
-    setSelectedAmount(selectedAmount);
+    let selectedTotalPrice = (price * amount).toFixed(2) 
+    setSelectedTotal(selectedTotalPrice);
   }, 1000)
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const App: React.FC = () => {
           <CartMessages error={error}>
             <p>PRICE: {product !== undefined ? product.price : "0"} €</p>
             <p>AMOUNT: {!isNaN(amount) ? amount : 'invalid number'}</p>
-            <p>TOTAL: {selAmount} €</p>
+            <p>TOTAL: {selectedTotal} €</p>
           </CartMessages>
           <CartTable state={state} removeTheProduct={removeTheProduct}></CartTable>
         </div>
