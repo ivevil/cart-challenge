@@ -3,6 +3,7 @@
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   padding: 20px;
+  border-top: 40px rgb(98, 98, 98) solid;
 }
 
 table {

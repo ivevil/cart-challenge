@@ -1,3 +1,9 @@
+.slidecontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .slider {
     -webkit-appearance: none;
     height: 8px;

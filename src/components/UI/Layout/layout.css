@@ -1,9 +1,7 @@
 .cart {
   padding: 1rem 1rem 3rem 1rem;
   border-radius: 25px;
-  background-color: rgb(31, 31, 31);
   color: white;
-  margin: 2rem auto;
   width: 60rem;
   max-width: 95%;
 }
@@ -17,4 +15,5 @@
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   padding: 20px;
+  margin: 2rem auto;
 }
