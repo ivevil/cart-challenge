@@ -35,3 +35,9 @@ button {
     background-color: #530101;
     color: white;
 }
+
+@media screen and (max-width: 768px) {
+    button {
+      padding: 10px;
+    }
+  }

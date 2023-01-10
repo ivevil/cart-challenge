@@ -1,7 +1,6 @@
 .cart__table {
   background: gray;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-radius: 15px;
   padding: 20px;
   border-top: 40px rgb(98, 98, 98) solid;
 }
@@ -12,10 +11,17 @@ table {
 }
 
 table tr:first-child {
-  color:#006496;
+  color: #006496;
   border-bottom: 1px solid white;
 }
 
 .cart__empty h2 {
   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .cart__table {
+    padding: 2px;
+    font-size: 12px;
+  }
 }
