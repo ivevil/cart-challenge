@@ -1,4 +1,4 @@
-import Modal from './components/UI/Modal';
+import Modal from './components/UI/Modal'
 import CartSelection from './components/Cart/CartSelection';
 import CartTable from './components/Cart/CartTable';
 import CartMessages from './components/Cart/CartMessages';
@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [amount, setAmount] = useState<number>(1)
   const [error, updateMessageError] = useState<string>('')
   const [modal, showModal] = useState(false);
+  const [selAmount, setSelectedAmount] = useState<string>('')
 
   const selectProduct = (id: string) => {
     const value = id;
@@ -89,11 +90,18 @@ const App: React.FC = () => {
     return total.toFixed(2);
   }
 
+  const calculateTotal = (price: number, amount: number) => window.setTimeout(function () { 
+    let selectedAmount = (price * amount).toFixed(2) 
+    setSelectedAmount(selectedAmount);
+  }, 1000)
+
   useEffect(() => {
     fetch('products.json')
       .then(response => response.json())
       .then(data => dispatch({ type: "LIST_PRODUCTS", payload: data }));
   }, [])
+
+  if(product) calculateTotal(product.price, amount);
 
   return (
     <>
@@ -102,16 +110,16 @@ const App: React.FC = () => {
         <CartSelection state={state} selectProduct={selectProduct} amount={amount} handleClick={handleClick} setAmount={setAmount} product={product} checkIfButtonIsDisabled={checkIfButtonIsDisabled()} />
         <div className="cart__products">
           <CartMessages error={error}>
-            <p>PRICE: {product !== undefined ? product.price : "0"}</p>
+            <p>PRICE: {product !== undefined ? product.price : "0"} €</p>
             <p>AMOUNT: {!isNaN(amount) ? amount : 'invalid number'}</p>
-            <p>TOTAL: {product !== undefined && !(isNaN(amount)) ? (Number(product.price) * Number(amount)).toFixed(2) : "0"} €</p>
+            <p>TOTAL: {selAmount} €</p>
           </CartMessages>
           <CartTable state={state} removeTheProduct={removeTheProduct}></CartTable>
         </div>
         <CartTotal state={state} getTotal={getTotal()} clearCart={clearCart} buyItems={buyItems} />
       </Layout>
       <Modal open={modal} toggle={toggle}>
-          <h3>Yaay!!! Successfuly bought items!</h3>
+        <h3>Yaay!!! Successfuly bought items!</h3>
       </Modal>
     </>
   )
