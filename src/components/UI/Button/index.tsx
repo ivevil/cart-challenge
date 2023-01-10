@@ -2,7 +2,7 @@ import './button.css'
 
 interface ButtonProps {
     children: React.ReactNode;
-    onClick: (arg?: React.MouseEvent | undefined) => void;
+    onClick: (arg: React.MouseEvent | undefined) => void;
     disabled: boolean | undefined;
     buttonClass: string;
 }
